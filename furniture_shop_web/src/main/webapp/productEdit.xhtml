@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+    <f:viewAction action="#{productEdit.onLoad()}" />
+</f:metadata>
+
+<h:head>
+	<meta charset="utf-8"/>
+	<title>Meble Proszowski</title>
+</h:head>
+
+<h:body style="background-color: #eee; margin: 0.5em;">
+
+	<p:panel toggleable="true" header="Edycja produktu">
+
+		<h:form rendered="#{productEdit.product != null}">
+			<h:panelGrid columns="3" cellpadding="5">
+
+				<h:outputLabel for="p-name" value="Nazwa:" />
+				<p:inputText id="p-name" value="#{productEdit.product.name}"
+					required="true" requiredMessage="Podaj nazwę"
+					validatorMessage="co najwyżej 40 znaków">
+					<f:validateLength maximum="40" />
+				</p:inputText>
+				<p:message for="p-name" display="icon"/>
+
+				<h:outputLabel for="p-price" value="Cena:" />
+				<p:inputText id="p-price" value="#{productEdit.product.price}"
+					required="true" requiredMessage="Podaj cenę"
+					validatorMessage="co najwyżej 40 znaków">
+					<f:validateLength maximum="40" />
+				</p:inputText>
+				<p:message for="p-price" display="icon"/>
+				
+				<h:outputLabel for="p-material" value="Materiał:" />
+				<p:inputText id="p-material" value="#{productEdit.product.material}"
+					required="true" requiredMessage="Podaj materiał"
+					validatorMessage="co najwyżej 40 znaków">
+					<f:validateLength maximum="40" />
+				</p:inputText>
+				<p:message for="p-material" display="icon"/>
+
+			</h:panelGrid>
+
+			<p:messages id="msgs" />
+
+			<p:commandButton value="Zapisz" action="#{productEdit.saveData()}"
+				style="margin-right: 1em;" update="@form" />
+
+			<p:button value="Anuluj" outcome="productList" />
+		</h:form>
+
+	</p:panel>
+
+</h:body>
+
+</html>
