@@ -7,11 +7,11 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <f:metadata>
-    <f:viewAction action="#{productEdit.onLoad()}" />
+	<f:viewAction action="#{productEdit.onLoad()}" />
 </f:metadata>
 
 <h:head>
-	<meta charset="utf-8"/>
+	<meta charset="utf-8" />
 	<title>Meble Proszowski</title>
 </h:head>
 
@@ -24,38 +24,55 @@
 
 				<h:outputLabel for="p-name" value="Nazwa:" />
 				<p:inputText id="p-name" value="#{productEdit.product.name}"
-					required="true" requiredMessage="Podaj nazwę"
+					required="true" requiredMessage="Podaj nazwę:"
 					validatorMessage="co najwyżej 40 znaków">
 					<f:validateLength maximum="40" />
 				</p:inputText>
-				<p:message for="p-name" display="icon"/>
+				<p:message for="p-name" display="icon" />
 
 				<h:outputLabel for="p-price" value="Cena:" />
 				<p:inputText id="p-price" value="#{productEdit.product.price}"
-					required="true" requiredMessage="Podaj cenę"
-					validatorMessage="co najwyżej 40 znaków">
+					required="true" requiredMessage="Podaj cenę:"
+					validatorMessage="co najwyżej 40 znaków"
+					converterMessage="Podaj liczbę:">
 					<f:validateLength maximum="40" />
 				</p:inputText>
-				<p:message for="p-price" display="icon"/>
-				
+				<p:message for="p-price" display="icon" />
+
 				<h:outputLabel for="p-material" value="Materiał:" />
 				<p:inputText id="p-material" value="#{productEdit.product.material}"
-					required="true" requiredMessage="Podaj materiał"
+					required="true" requiredMessage="Podaj materiał:"
 					validatorMessage="co najwyżej 40 znaków">
 					<f:validateLength maximum="40" />
 				</p:inputText>
-				<p:message for="p-material" display="icon"/>
+				<p:message for="p-material" display="icon" />
 
+				<h:outputLabel for="p-availibility" value="Dostępność:" />
+				<p:inputText id="p-availibility"
+					value="#{productEdit.product.availibility}" required="true"
+					requiredMessage="Podaj dostępność:"
+					validatorMessage="Podaj 1 - jeśli dostępny / 0 - jesli niedostępny"
+					converterMessage="Podaj liczbę:">
+					<f:validateLongRange maximum="1" />
+				</p:inputText>
+				<p:message for="p-availibility" display="icon" />
+
+				<h:outputLabel for="p-quantity" value="Ilość:" />
+				<p:inputText id="p-quantity" value="#{productEdit.product.quantity}"
+					required="true" requiredMessage="Podaj ilość:"
+					validatorMessage="co najwyżej 40 znaków"
+					converterMessage="Podaj liczbę:">
+					<f:validateLength maximum="40" />
+				</p:inputText>
+				<p:message for="p-quantity" display="icon" />
 			</h:panelGrid>
 
-			<p:messages id="msgs" />
-
 			<p:commandButton value="Zapisz" action="#{productEdit.saveData()}"
-				style="margin-right: 1em;" update="@form" />
+				style="margin-right: 1em;" update="growl" />
 
 			<p:button value="Anuluj" outcome="productList" />
 		</h:form>
-
+		<p:growl id="growl" showDetail="true" />
 	</p:panel>
 
 </h:body>

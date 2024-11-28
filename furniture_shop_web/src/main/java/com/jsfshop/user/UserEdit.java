@@ -1,4 +1,4 @@
-package com.jsfcourse.product;
+package com.jsfshop.user;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -13,30 +13,33 @@ import jakarta.inject.Named;
 import jakarta.servlet.http.HttpSession;
 
 import com.jsf.dao.ProductDAO;
-import com.jsf.entities.Product;
+import com.jsf.dao.UserDAO;
+import com.jsf.entities.User;
+import com.jsf.entities.User;
 
 @Named
 @ViewScoped
-public class ProductEdit implements Serializable {
+public class UserEdit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private static final String PAGE_PRODUCT_LIST = "productList?faces-redirect=true";
+	private static final String PAGE_USER_LIST = "userList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
-	private Product product = new Product();
-	private Product loaded = null;
+	private User user = new User();
+	private User loaded = null;
 
 	@EJB
-	ProductDAO productDAO;
+	UserDAO userDAO;
 
 	@Inject
 	FacesContext context;
 
 	@Inject
 	Flash flash;
-
-	public Product getProduct() {
-		return product;
+	
+	//do czego?? 
+	public User getUser() {
+		return user;
 	}
 
 	public void onLoad() throws IOException {
@@ -45,11 +48,11 @@ public class ProductEdit implements Serializable {
 		// loaded = (Product) session.getAttribute("Product");
 
 		// 2. load Product passed through flash
-		loaded = (Product) flash.get("product");
+		loaded = (User) flash.get("user");
 
 		// cleaning: attribute received => delete it from session
 		if (loaded != null) {
-			product = loaded;
+			user = loaded;
 			// session.removeAttribute("Product");
 		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędne użycie systemu", null));
@@ -68,12 +71,12 @@ public class ProductEdit implements Serializable {
 		}
 
 		try {
-			if (product.getIdProducts() == 0) {
+			if (user.getIdUser() == 0) {
 				// new record
-				productDAO.create(product);
+				userDAO.create(user);
 			} else {
 				// existing record
-				productDAO.merge(product);
+				userDAO.merge(user);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,6 +85,6 @@ public class ProductEdit implements Serializable {
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
-		return PAGE_PRODUCT_LIST;
+		return PAGE_USER_LIST;
 	}
 }

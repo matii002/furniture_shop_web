@@ -1,4 +1,4 @@
-package com.jsfcourse.product;
+package com.jsfshop.product;
 
 import java.util.HashMap;
 import java.util.List;

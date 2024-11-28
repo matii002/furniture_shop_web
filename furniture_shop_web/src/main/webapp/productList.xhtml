@@ -10,12 +10,12 @@
 	<meta charset="utf-8" />
 	<title>Meble Proszowski</title>
 </h:head>
-<h:body style="background-color: #eee; margin: 0.5em;">
+<h:body style="background-color: #eee; margin: 1em;">
 
-	<p:panel header="Opcje wyszukiwania" toggleable="true" collapsed="true"
+	<p:panel header="Wyszukaj produkt"
 		style="margin-bottom: 1em;">
 		<h:form>
-			<h:panelGrid columns="2" cellpadding="5">
+			<h:panelGrid columns="2" cellpadding="5" style="padding-left:36%;">
 				<h:outputLabel value="Nazwa:" />
 				<p:inputText value="#{productList.name}" />
 				<p:commandButton value="Szukaj" update="form-table" />
@@ -28,7 +28,7 @@
 	<h:form id="form-table" style="margin-bottom:1em;">
 
 		<p:commandButton value="Dodaj nowy produkt"
-			action="#{productList.newProduct()}" style="margin-bottom:1em;" />
+			action="#{productList.newProduct()}" style="margin-bottom:1em;"  />
 
 		<p:dataTable value="#{productList.list}" var="p">
 
@@ -39,7 +39,7 @@
 				<h:outputText value="#{p.name}" />
 			</p:column>
 
-			<p:column>
+			<p:column priority="5">
 				<f:facet name="header">
 					<h:outputText value="Cena" />
 				</f:facet>
@@ -73,7 +73,7 @@
 				</f:facet>
 
 				<p:commandButton value="Edytuj"
-					action="#{productList.editProduct(p)}" />
+					action="#{productList.editProduct(p)}" style="margin-right:1em"/>
 
 				<p:commandButton value="Usuń"
 					action="#{productList.deleteProduct(p)}" update="@form" />
