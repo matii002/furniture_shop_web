@@ -14,8 +14,8 @@ import jakarta.servlet.http.HttpSession;
 
 import com.jsf.dao.ProductDAO;
 import com.jsf.dao.UserDAO;
-import com.jsf.entities.User;
-import com.jsf.entities.User;
+import com.jsf.entities.UserEntity;
+import com.jsf.entities.UserEntity;
 
 @Named
 @ViewScoped
@@ -25,8 +25,8 @@ public class UserEdit implements Serializable {
 	private static final String PAGE_USER_LIST = "userList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
-	private User user = new User();
-	private User loaded = null;
+	private UserEntity user = new UserEntity();
+	private UserEntity loaded = null;
 
 	@EJB
 	UserDAO userDAO;
@@ -37,45 +37,30 @@ public class UserEdit implements Serializable {
 	@Inject
 	Flash flash;
 	
-	//do czego?? 
-	public User getUser() {
+	public UserEntity getUser() {
 		return user;
 	}
 
 	public void onLoad() throws IOException {
-		// 1. load Product passed through session
-		// HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		// loaded = (Product) session.getAttribute("Product");
+		loaded = (UserEntity) flash.get("user");
 
-		// 2. load Product passed through flash
-		loaded = (User) flash.get("user");
-
-		// cleaning: attribute received => delete it from session
 		if (loaded != null) {
 			user = loaded;
-			// session.removeAttribute("Product");
 		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędne użycie systemu", null));
-			// if (!context.isPostback()) { //possible redirect
-			// context.getExternalContext().redirect("ProductList.xhtml");
-			// context.responseComplete();
-			// }
 		}
 
 	}
 
 	public String saveData() {
-		// no Product object passed
 		if (loaded == null) {
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
 		try {
 			if (user.getIdUser() == 0) {
-				// new record
 				userDAO.create(user);
 			} else {
-				// existing record
 				userDAO.merge(user);
 			}
 		} catch (Exception e) {

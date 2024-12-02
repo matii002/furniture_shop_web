@@ -13,7 +13,7 @@ import jakarta.inject.Named;
 import jakarta.servlet.http.HttpSession;
 
 import com.jsf.dao.ProductDAO;
-import com.jsf.entities.Product;
+import com.jsf.entities.ProductEntity;
 
 @Named
 @ViewScoped
@@ -23,8 +23,8 @@ public class ProductEdit implements Serializable {
 	private static final String PAGE_PRODUCT_LIST = "productList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
-	private Product product = new Product();
-	private Product loaded = null;
+	private ProductEntity product = new ProductEntity();
+	private ProductEntity loaded = null;
 
 	@EJB
 	ProductDAO productDAO;
@@ -36,7 +36,7 @@ public class ProductEdit implements Serializable {
 	Flash flash;
 	
 	//do czego?? 
-	public Product getProduct() {
+	public ProductEntity getProduct() {
 		return product;
 	}
 
@@ -46,7 +46,7 @@ public class ProductEdit implements Serializable {
 		// loaded = (Product) session.getAttribute("Product");
 
 		// 2. load Product passed through flash
-		loaded = (Product) flash.get("product");
+		loaded = (ProductEntity) flash.get("product");
 
 		// cleaning: attribute received => delete it from session
 		if (loaded != null) {

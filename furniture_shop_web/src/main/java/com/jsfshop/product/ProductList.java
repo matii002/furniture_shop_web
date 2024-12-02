@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jsf.dao.ProductDAO;
-import com.jsf.entities.Product;
+import com.jsf.entities.ProductEntity;
 
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
@@ -39,12 +39,12 @@ public class ProductList {
 		this.name = name;
 	}
 
-	public List<Product> getFullList(){
+	public List<ProductEntity> getFullList(){
 		return productDAO.getFullList();
 	}
 
-	public List<Product> getList(){
-		List<Product> list = null;
+	public List<ProductEntity> getList(){
+		List<ProductEntity> list = null;
 		
 		//1. Prepare search params
 		Map<String,Object> searchParams = new HashMap<String, Object>();
@@ -60,7 +60,7 @@ public class ProductList {
 	}
 
 	public String newProduct(){
-		Product product = new Product();
+		ProductEntity product = new ProductEntity();
 		
 		//1. Pass object through session
 		//HttpSession session = (HttpSession) extcontext.getSession(true);
@@ -72,7 +72,7 @@ public class ProductList {
 		return PAGE_PRODUCT_EDIT;
 	}
 
-	public String editProduct(Product product){
+	public String editProduct(ProductEntity product){
 		//1. Pass object through session
 		//HttpSession session = (HttpSession) extcontext.getSession(true);
 		//session.setAttribute("Product", Product);
@@ -83,7 +83,7 @@ public class ProductList {
 		return PAGE_PRODUCT_EDIT;
 	}
 
-	public String deleteProduct(Product product){
+	public String deleteProduct(ProductEntity product){
 		productDAO.remove(product);
 		return PAGE_STAY_AT_THE_SAME;
 	}

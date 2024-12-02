@@ -57,7 +57,7 @@
 				<f:facet name="header">
 					<h:outputText value="Dostępność" />
 				</f:facet>
-				<h:outputText value="#{p.availibility}" />
+				<h:outputText value="#{p.availibility == 1 ? 'Dostępny' : 'Niedostepny'}" />
 			</p:column>
 			
 			<p:column>
