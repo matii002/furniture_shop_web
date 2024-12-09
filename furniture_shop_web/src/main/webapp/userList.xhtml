@@ -11,9 +11,8 @@
 	<title>Meble Proszowski</title>
 </h:head>
 <h:body style="background-color: #eee; margin: 1em;">
-
-	<p:panel header="Wyszukaj uzytkownika"
-		style="margin-bottom: 1em;">
+	<ui:include src="menu-snippet.xhtml"></ui:include>
+	<p:panel header="Wyszukaj uzytkownika" style="margin-bottom: 1em;">
 		<h:form>
 			<h:panelGrid columns="2" cellpadding="5" style="padding-left:36%;">
 				<h:outputLabel value="Nazwisko:" />
@@ -28,7 +27,7 @@
 	<h:form id="form-table" style="margin-bottom:1em;">
 
 		<p:commandButton value="Dodaj nowego uzytkownika:"
-			action="#{userList.newUser()}" style="margin-bottom:1em;"  />
+			action="#{userList.newUser()}" style="margin-bottom:1em;" />
 
 		<p:dataTable value="#{userList.list}" var="u">
 
@@ -52,66 +51,66 @@
 				</f:facet>
 				<h:outputText value="#{u.login}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Email" />
 				</f:facet>
 				<h:outputText value="#{u.email}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Miasto" />
 				</f:facet>
 				<h:outputText value="#{u.city}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Ulica" />
 				</f:facet>
 				<h:outputText value="#{u.street}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Numer domu" />
 				</f:facet>
 				<h:outputText value="#{u.houseNumber}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Kod pocztowy" />
 				</f:facet>
 				<h:outputText value="#{u.postCode}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Data utworzenia" />
 				</f:facet>
 				<h:outputText value="#{u.createDate}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Data modyfikacji" />
 				</f:facet>
 				<h:outputText value="#{u.modyficationDate}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="opcje" />
 				</f:facet>
 
-				<p:commandButton value="Edytuj"
-					action="#{userList.editUser(u)}" style="margin-right:1em"/>
+				<p:commandButton value="Edytuj" action="#{userList.editUser(u)}"
+					style="margin-right:1em" />
 
-				<p:commandButton value="Usuń"
-					action="#{userList.deleteUser(u)}" update="@form" />
+				<p:commandButton value="Usuń" action="#{userList.deleteUser(u)}"
+					update="@form" />
 			</p:column>
 
 		</p:dataTable>

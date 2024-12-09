@@ -8,12 +8,13 @@
 
 <h:head>
 	<meta charset="utf-8" />
-	<title>Meble Proszowski</title>
+	<title>Meble Proszowski - produkty</title>
 </h:head>
 <h:body style="background-color: #eee; margin: 1em;">
 
-	<p:panel header="Wyszukaj produkt"
-		style="margin-bottom: 1em;">
+	<ui:include src="menu-snippet.xhtml"/>
+
+	<p:panel header="Wyszukaj produkt" style="margin-bottom: 1em;">
 		<h:form>
 			<h:panelGrid columns="2" cellpadding="5" style="padding-left:36%;">
 				<h:outputLabel value="Nazwa:" />
@@ -23,12 +24,12 @@
 		</h:form>
 	</p:panel>
 
-	<p:messages />
+	<!-- <p:messages /> -->
 
 	<h:form id="form-table" style="margin-bottom:1em;">
 
 		<p:commandButton value="Dodaj nowy produkt"
-			action="#{productList.newProduct()}" style="margin-bottom:1em;"  />
+			action="#{productList.newProduct()}" style="margin-bottom:1em;" />
 
 		<p:dataTable value="#{productList.list}" var="p">
 
@@ -52,28 +53,29 @@
 				</f:facet>
 				<h:outputText value="#{p.material}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Dostępność" />
 				</f:facet>
-				<h:outputText value="#{p.availibility == 1 ? 'Dostępny' : 'Niedostepny'}" />
+				<h:outputText
+					value="#{p.availibility == 1 ? 'Dostępny' : 'Niedostepny'}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Ilość" />
 				</f:facet>
 				<h:outputText value="#{p.quantity}" />
 			</p:column>
-			
+
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="opcje" />
 				</f:facet>
 
 				<p:commandButton value="Edytuj"
-					action="#{productList.editProduct(p)}" style="margin-right:1em"/>
+					action="#{productList.editProduct(p)}" style="margin-right:1em" />
 
 				<p:commandButton value="Usuń"
 					action="#{productList.deleteProduct(p)}" update="@form" />
