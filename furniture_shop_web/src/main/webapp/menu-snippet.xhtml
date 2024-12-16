@@ -3,21 +3,23 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	<p:menubar style="text-align:center; margin-bottom:1em">
-		<p:submenu label="Realizacje">
-			<p:menuitem value="Kuchnie" />
-			<p:menuitem value="Salony" />
-			<p:menuitem value="Lazienki" />
-		</p:submenu>
-		<p:submenu label="Sklep">
-			<p:menuitem value="Stoły" />
-			<p:menuitem value="Regały" />
-			<p:menuitem value="Witryny" />
-			<p:menuitem value="Krzesła" />
-		</p:submenu>
-		<p:menuitem value="Rejestracja"></p:menuitem>
-		<p:menuitem value="Logowanie"></p:menuitem>
-		<p:menuitem value="Lista produktów" outcome="productList"></p:menuitem>
-		<p:menuitem value="Lista uzytkowników" outcome="userList"></p:menuitem>
-	</p:menubar>
+	<h:form>
+		<p:menubar style="text-align:center; margin-bottom:1em">
+			<p:submenu label="Realizacje">
+				<p:menuitem value="Kuchnie" />
+				<p:menuitem value="Salony" />
+				<p:menuitem value="Lazienki" />
+			</p:submenu>
+			<p:submenu label="Sklep">
+				<p:menuitem value="Stoły" />
+				<p:menuitem value="Regały" />
+				<p:menuitem value="Witryny" />
+				<p:menuitem value="Krzesła" />
+			</p:submenu>
+			<p:menuitem value="Rejestracja"></p:menuitem>
+			<p:menuitem value="Logowanie"></p:menuitem>
+			<p:menuitem value="Lista produktów" outcome="productList"></p:menuitem>
+			<p:menuitem value="Lista uzytkowników" outcome="userList"></p:menuitem>
+		</p:menubar>
+	</h:form>
 </ui:composition>

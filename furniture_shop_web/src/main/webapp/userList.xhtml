@@ -11,25 +11,30 @@
 	<title>Meble Proszowski</title>
 </h:head>
 <h:body style="background-color: #eee; margin: 1em;">
-	<ui:include src="menu-snippet.xhtml"></ui:include>
-	<p:panel header="Wyszukaj uzytkownika" style="margin-bottom: 1em;">
-		<h:form>
-			<h:panelGrid columns="2" cellpadding="5" style="padding-left:36%;">
-				<h:outputLabel value="Nazwisko:" />
+	<ui:include src="menu-snippet.xhtml" />
+
+	<p:growl id="growl" showDetail="true" />
+
+	<h:form>
+		<p:panel header="Wyszukaj uzytkownika - nazwisko"
+			style="text-align:center;">
+			<h:panelGrid columns="2" cellpadding="5"
+				style="display:flex;  justify-content:center;">
 				<p:inputText value="#{userList.surname}" />
-				<p:commandButton value="Szukaj" update="form-table" />
+				<br />
+				<p:commandButton value="Szukaj" icon="pi pi-search"
+					update="form-table growl" />
 			</h:panelGrid>
-		</h:form>
-	</p:panel>
+		</p:panel>
+	</h:form>
 
-	<p:messages />
-
-	<h:form id="form-table" style="margin-bottom:1em;">
+	<h:form id="form-table" style="margin:1em 0;">
 
 		<p:commandButton value="Dodaj nowego uzytkownika:"
 			action="#{userList.newUser()}" style="margin-bottom:1em;" />
 
-		<p:dataTable value="#{userList.list}" var="u">
+		<p:dataTable value="#{userList.list}" var="u" paginator="true"
+			rows="10">
 
 			<p:column priority="5">
 				<f:facet name="header">
@@ -46,14 +51,14 @@
 			</p:column>
 
 			<p:column>
-				<f:facet name="header">
+				<f:facet name="header" priority="5">
 					<h:outputText value="Login" />
 				</f:facet>
 				<h:outputText value="#{u.login}" />
 			</p:column>
 
 			<p:column>
-				<f:facet name="header">
+				<f:facet name="header" priority="5">
 					<h:outputText value="Email" />
 				</f:facet>
 				<h:outputText value="#{u.email}" />
@@ -65,7 +70,6 @@
 				</f:facet>
 				<h:outputText value="#{u.city}" />
 			</p:column>
-
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Ulica" />
@@ -88,31 +92,34 @@
 			</p:column>
 
 			<p:column>
-				<f:facet name="header">
+				<f:facet name="header" priority="1">
 					<h:outputText value="Data utworzenia" />
 				</f:facet>
-				<h:outputText value="#{u.createDate}" />
+				<h:outputText value="#{u.creationDate}" />
 			</p:column>
 
 			<p:column>
-				<f:facet name="header">
+				<f:facet name="header" priority="1">
 					<h:outputText value="Data modyfikacji" />
 				</f:facet>
-				<h:outputText value="#{u.modyficationDate}" />
+				<h:outputText value="#{u.modificationDate}" />
 			</p:column>
+
 
 			<p:column>
 				<f:facet name="header">
 					<h:outputText value="opcje" />
 				</f:facet>
 
-				<p:commandButton value="Edytuj" action="#{userList.editUser(u)}"
-					style="margin-right:1em" />
-
-				<p:commandButton value="Usuń" action="#{userList.deleteUser(u)}"
-					update="@form" />
+				<p:panelMenu>
+					<p:submenu label="akcja">
+						<p:menuitem value="Edytuj" action="#{userList.editUser(u)}"
+							icon="pi pi-pencil" />
+						<p:menuitem value="Usuń" action="#{userList.deleteUser(u)}"
+							update="form-table growl" icon="pi pi-trash" />
+					</p:submenu>
+				</p:panelMenu>
 			</p:column>
-
 		</p:dataTable>
 	</h:form>
 

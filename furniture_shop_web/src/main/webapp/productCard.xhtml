@@ -14,23 +14,35 @@
 
 	<ui:include src="menu-snippet.xhtml"></ui:include>
 
-	<p:dataView var="product" value="#{productList.list}" paginator="true"
-		rows="4" layout="grid"  gridIcon="pi pi-th-large">
-		<p:dataViewGridItem>
-			<p:panel>
-				<p:panelGrid columns="1">
-					<p:graphicImage name="images/demo.jpg" />
-					<h:outputText value="Nazwa: #{product.name}"></h:outputText>
-					<h:outputText value="Materiał: #{product.material}"></h:outputText>
-					<h:outputText value="Cena: #{product.price}"></h:outputText>
-					<p:commandButton type="button" value="Dodaj do koszyka"
-						icon="pi pi-shopping-cart">
-					</p:commandButton>
-				</p:panelGrid>
-			</p:panel>
-		</p:dataViewGridItem>
-	</p:dataView>
+	<p:growl id="growl" showDetail="true" />
+	<h:form>
+		<p:dataView var="product" value="#{productList.list}">
 
+			<p:dataViewGridItem
+				style="display: flex; margin:10px; padding: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); justify-content: center; border:none !important;"  rows="4" grid="true">
+
+				<p:graphicImage name="images/demo.jpg"
+					style="margin-right: 20px;  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 1px;" />
+				<div class="product-list-detail"
+					style="display: flex; flex-direction: column; justify-content: space-between;">
+					<p style="margin-bottom: 10px;">
+						<b>Nazwa: </b> #{product.name}
+					</p>
+					<p style="margin-bottom: 10px;">
+						<b>Materiał: </b>#{product.material}
+					</p>
+					<p style="margin-bottom: 10px;">
+						<b>Cena: </b>#{product.price} zł
+					</p>
+				</div>
+				<div>
+					<h:outputText value="#{p.price}" />
+					<p:commandButton type="button" value="Dodaj do koszyka"
+						icon="pi pi-shopping-cart" style="justify-content: center;" />
+				</div>
+			</p:dataViewGridItem>
+		</p:dataView>
+	</h:form>
 
 </h:body>
 </html>

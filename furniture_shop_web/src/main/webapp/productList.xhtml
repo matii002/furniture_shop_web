@@ -12,26 +12,30 @@
 </h:head>
 <h:body style="background-color: #eee; margin: 1em;">
 
-	<ui:include src="menu-snippet.xhtml"/>
+	<ui:include src="menu-snippet.xhtml" />
 
-	<p:panel header="Wyszukaj produkt" style="margin-bottom: 1em;">
+	<p:growl id="growl" showDetail="true" />
+
+	<p:panel header="Wyszukaj produkt - nazwa"
+		style="margin-bottom: 1em; text-align:center;">
 		<h:form>
-			<h:panelGrid columns="2" cellpadding="5" style="padding-left:36%;">
-				<h:outputLabel value="Nazwa:" />
+			<h:panelGrid columns="2" cellpadding="5"
+				style="display:flex; justify-content: center;">
+
 				<p:inputText value="#{productList.name}" />
-				<p:commandButton value="Szukaj" update="form-table" />
+				<br />
+				<p:commandButton value="Szukaj" update="form-table"
+					icon="pi pi-search"/>
 			</h:panelGrid>
 		</h:form>
 	</p:panel>
-
-	<!-- <p:messages /> -->
 
 	<h:form id="form-table" style="margin-bottom:1em;">
 
 		<p:commandButton value="Dodaj nowy produkt"
 			action="#{productList.newProduct()}" style="margin-bottom:1em;" />
 
-		<p:dataTable value="#{productList.list}" var="p">
+		<p:dataTable value="#{productList.list}" var="p" paginator="true" rows="2">
 
 			<p:column priority="5">
 				<f:facet name="header">
@@ -58,8 +62,15 @@
 				<f:facet name="header">
 					<h:outputText value="Dostępność" />
 				</f:facet>
-				<h:outputText
-					value="#{p.availibility == 1 ? 'Dostępny' : 'Niedostepny'}" />
+				<h:panelGroup rendered="#{p.availibility == 0}">
+					<i class="pi pi-circle-fill" style="color: red;" />
+					<h:outputText value=" Niedostępny" />
+				</h:panelGroup>
+
+				<h:panelGroup rendered="#{p.availibility == 1}">
+					<i class="pi pi-circle-fill" style="color: green;" />
+					<h:outputText value=" Dostępny" />
+				</h:panelGroup>
 			</p:column>
 
 			<p:column>
@@ -73,12 +84,17 @@
 				<f:facet name="header">
 					<h:outputText value="opcje" />
 				</f:facet>
-
-				<p:commandButton value="Edytuj"
-					action="#{productList.editProduct(p)}" style="margin-right:1em" />
-
-				<p:commandButton value="Usuń"
-					action="#{productList.deleteProduct(p)}" update="@form" />
+				
+					<p:panelMenu>
+						<p:submenu label="akcja">
+							<p:menuitem value="Edytuj" action="#{productList.editProduct(p)}"
+								icon="pi pi-pencil" />
+							<p:menuitem value="Usuń"
+								action="#{productList.deleteProduct(p)}"
+								update="form-table growl" icon="pi pi-trash" />
+						</p:submenu>
+					</p:panelMenu>
+				
 			</p:column>
 
 		</p:dataTable>

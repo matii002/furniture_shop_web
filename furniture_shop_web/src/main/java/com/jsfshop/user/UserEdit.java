@@ -10,18 +10,13 @@ import jakarta.faces.context.Flash;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.servlet.http.HttpSession;
-
-import com.jsf.dao.ProductDAO;
 import com.jsf.dao.UserDAO;
-import com.jsf.entities.UserEntity;
 import com.jsf.entities.UserEntity;
 
 @Named
 @ViewScoped
 public class UserEdit implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	private static final String PAGE_USER_LIST = "userList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
@@ -36,7 +31,7 @@ public class UserEdit implements Serializable {
 
 	@Inject
 	Flash flash;
-	
+
 	public UserEntity getUser() {
 		return user;
 	}
@@ -60,8 +55,10 @@ public class UserEdit implements Serializable {
 		try {
 			if (user.getIdUser() == 0) {
 				userDAO.create(user);
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Utworzono nowego uzytkownika.", null));
 			} else {
 				userDAO.merge(user);
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Zaktualizowano pomyślnie.", null));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
