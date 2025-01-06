@@ -3,8 +3,9 @@ package com.jsfshop.order;
 import java.io.IOException;
 import java.io.Serializable;
 
-import com.jsf.dao.OrderDAO;
-import com.jsf.entities.OrderEntity;
+import com.jsf.dao.OrderDetailsDAO;
+import com.jsf.entities.OrderDetailsEntity;
+import com.jsf.entities.OrderProductEntity;
 
 import jakarta.ejb.EJB;
 import jakarta.faces.application.FacesMessage;
@@ -21,12 +22,14 @@ public class OrderEdit implements Serializable {
 
 	private static final String PAGE_ORDER_LIST = "orderList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
+	private static final String PAGE_ORDER_PRODUCT_LIST = "orderProductList?faces-redirect=true";
 
-	private OrderEntity order = new OrderEntity();
-	private OrderEntity loaded = null;
+	private int idOrder;
+	private OrderDetailsEntity order = new OrderDetailsEntity();
+;	private OrderProductEntity loaded = null;
 
 	@EJB
-	OrderDAO orderDAO;
+	OrderDetailsDAO orderDetailsDAO;
 
 	@Inject
 	FacesContext context;
@@ -34,7 +37,7 @@ public class OrderEdit implements Serializable {
 	@Inject
 	Flash flash;
 	
-	public OrderEntity getOrder() {
+	public OrderDetailsEntity getOrder() {
 		return order;
 	}
 
@@ -44,12 +47,16 @@ public class OrderEdit implements Serializable {
 		// loaded = (Product) session.getAttribute("Product");
 
 		// 2. load Product passed through flash
-		loaded = (OrderEntity) flash.get("order");
+		loaded = (OrderProductEntity) flash.get("orderProduct");
 
 		// cleaning: attribute received => delete it from session
 		if (loaded != null) {
-			order = loaded;
+			this.idOrder = loaded.getOrderDetail().getIdOrder();
 			// session.removeAttribute("Product");
+			order = orderDetailsDAO.find(idOrder);
+			if(order == null) {
+				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nie znaleziono zamówienia o podanym id.", null));
+			}
 		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędne użycie systemu", null));
 			// if (!context.isPostback()) { //possible redirect
@@ -69,10 +76,10 @@ public class OrderEdit implements Serializable {
 		try {
 			if (order.getIdOrder() == 0) {
 				// new record
-				orderDAO.create(order);
+				orderDetailsDAO.create(order);
 			} else {
 				// existing record
-				orderDAO.merge(order);
+				orderDetailsDAO.merge(order);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,6 +88,10 @@ public class OrderEdit implements Serializable {
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
-		return PAGE_ORDER_LIST;
+		return PAGE_ORDER_PRODUCT_LIST;
+	}
+	
+	public String close() {
+		return PAGE_ORDER_PRODUCT_LIST;
 	}
 }

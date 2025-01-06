@@ -15,6 +15,42 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>nova-light</param-value>
 	</context-param>
+
+	<filter>
+		<filter-name>SecurityFilter</filter-name>
+		<filter-class>jakarta.faces.simplesecurity.SecurityFilter</filter-class>
+		<init-param>
+			<param-name>noPermitionPage</param-name>
+			<param-value>/pages/user/loginPage.xhtml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>permissions</param-name>
+			<param-value>
+/jakarta.faces.resource : PUBLIC;
+/public : PUBLIC;
+/pages : admin;
+/pages/user : user, shop-assistant, admin;
+/pages/admin : admin;
+/pages/shop-assistant : admin, shop-assistant;
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>invalidateOnRemoteAddressChange</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>invalidateOnRemoteHostChange</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>invalidateOnRemotePortChange</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>SecurityFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
@@ -22,9 +58,22 @@
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
+		<url-pattern>/faces/*</url-pattern>
 	</servlet-mapping>
+	<session-config>
+		<session-timeout>1</session-timeout>
+		<tracking-mode>COOKIE</tracking-mode>
+	</session-config>
+	<mime-mapping>
+		<extension>ico</extension>
+		<mime-type>image/x-icon</mime-type>
+	</mime-mapping>
 	<welcome-file-list>
-		<welcome-file>main-template.xhtml</welcome-file>
+		<welcome-file>/pages/user/productCard.xhtml</welcome-file>
 	</welcome-file-list>
-	
+	<error-page>
+		<exception-type>jakarta.faces.application.ViewExpiredException</exception-type>
+		<location>/pages/viewExpired.xhtml</location>
+	</error-page>
+
 </web-app>

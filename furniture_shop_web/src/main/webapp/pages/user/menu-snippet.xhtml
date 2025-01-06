@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form>
+		<p:menubar style="text-align:center; margin-bottom:1em">
+			<p:submenu label="Realizacje">
+				<p:menuitem value="Kuchnie" />
+				<p:menuitem value="Salony" />
+				<p:menuitem value="Lazienki" />
+			</p:submenu>
+			<p:submenu label="Sklep">
+				<p:menuitem value="Stoły"
+					action="#{menuNavigation.goToProductsCards}" />
+				<p:menuitem value="Regały" />
+				<p:menuitem value="Witryny" />
+				<p:menuitem value="Krzesła" />
+			</p:submenu>
+			<p:menuitem value="Rejestracja"
+				action="#{menuNavigation.goToRegistration}"></p:menuitem>
+			<p:menuitem value="Logowanie" action="#{menuNavigation.goToLogin}"></p:menuitem>
+			<p:menuitem value="Lista produktów"
+				action="#{menuNavigation.goToProductsList}"></p:menuitem>
+			<p:menuitem value="Lista uzytkowników"
+				action="#{menuNavigation.goToUsers}"></p:menuitem>
+			<p:menuitem value="Zamówienia"
+				action="#{menuNavigation.goToOrdersProducts}"></p:menuitem>
+		</p:menubar>
+	</h:form>
+</ui:composition>

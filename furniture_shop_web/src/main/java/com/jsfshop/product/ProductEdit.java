@@ -33,15 +33,15 @@ public class ProductEdit implements Serializable {
 
 	@Inject
 	Flash flash;
-	
-	//do czego?? 
+
 	public ProductEntity getProduct() {
 		return product;
 	}
 
 	public void onLoad() throws IOException {
 		// 1. load Product passed through session
-		// HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		// HttpSession session = (HttpSession)
+		// context.getExternalContext().getSession(true);
 		// loaded = (Product) session.getAttribute("Product");
 
 		// 2. load Product passed through flash

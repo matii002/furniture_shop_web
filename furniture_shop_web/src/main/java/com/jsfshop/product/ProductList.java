@@ -30,6 +30,9 @@ public class ProductList {
 	
 	@EJB
 	ProductDAO productDAO;
+	public List<ProductEntity> init(){
+		return productDAO.getFullList();
+	}
 		
 	public String getName() {
 		return name;

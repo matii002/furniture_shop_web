@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta charset="utf-8" />
+	<title>Zamówienia produktów</title>
+</h:head>
+<h:body style="background-color: #eee; margin: 1em;">
+
+	<ui:include src="menu-snippet.xhtml"></ui:include>
+	<p:growl id="growl" showDetail="true" />
+
+	<h:form id="form-table" style="margin-bottom:1em;">
+
+		<p:dataTable value="#{orderProductList.list}" var="o"
+			 rows="10" paginator="true" >
+
+			<p:column headerText="ID Zamówienia">
+				<h:outputText value="#{o.orderDetail.idOrder}" />
+			</p:column>
+			<p:column headerText="Data Zamówienia">
+				<h:outputText value="#{o.orderDetail.orderDate}" />
+			</p:column>
+			<p:column headerText="Data Zakończenia">
+				<h:outputText value="#{o.orderDetail.orderFinish}" />
+			</p:column>
+			<p:column headerText="Akcje">
+				<p:commandButton value="Szczegóły"
+					action="#{orderProductList.showOrderDetails(o)}"
+					update="details-panel growl" style="margin-right:10px">
+				</p:commandButton>
+				<p:commandButton value="Edytuj" action="#{orderProductList.editOrderProduct(o)}"></p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>
