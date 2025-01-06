@@ -19,7 +19,7 @@ import com.jsf.entities.ProductEntity;
 public class ProductEdit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private static final String PAGE_PRODUCT_LIST = "productList?faces-redirect=true";
+	private static final String PAGE_PRODUCT_LIST = "/pages/shop-assistant/productList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private ProductEntity product = new ProductEntity();

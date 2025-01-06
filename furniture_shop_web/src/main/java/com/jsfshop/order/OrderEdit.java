@@ -20,9 +20,8 @@ import jakarta.inject.Named;
 public class OrderEdit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private static final String PAGE_ORDER_LIST = "orderList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
-	private static final String PAGE_ORDER_PRODUCT_LIST = "orderProductList?faces-redirect=true";
+	private static final String PAGE_ORDER_PRODUCT_LIST = "/pages/shop-assistant/orderProductList?faces-redirect=true";
 
 	private int idOrder;
 	private OrderDetailsEntity order = new OrderDetailsEntity();

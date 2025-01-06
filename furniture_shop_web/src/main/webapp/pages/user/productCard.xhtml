@@ -8,58 +8,44 @@
 
 <h:head>
 	<meta charset="utf-8" />
-	<title>mainPage</title>
+	<title>Produkty</title>
 </h:head>
 <h:body style="background-color: #eee; margin: 1em;">
 
-	<ui:include src="menu-snippet.xhtml"></ui:include>
+	<ui:include src="/pages/menu-snippet.xhtml"></ui:include>
 
 	<p:growl id="growl" showDetail="true" />
-	<h:form id="form">
-    
-    
-    
-    <p:dataView var="product" value="#{productList.fullList}">
-    <p:dataViewGridItem>
-        <p:panel header="#{car.id}" style="text-align:center">
-            <h:panelGrid columns="1" style="width:100%">
-                <p:graphicImage name="demo/images/car/#{car.brand}.gif"/> 
+	<div class="card">
+		<h:form>
+			<p:dataScroller value="#{productList.list}" var="product"
+				chunkSize="10">
+				<f:facet name="header">
+                Przewiń żeby załadować więcej produktów
+            </f:facet>
 
-                <h:outputText value="#{product.name}" />
-
-                <p:commandLink>
-                    <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
-                 
-                </p:commandLink>
-            </h:panelGrid>
-        </p:panel>
-    </p:dataViewGridItem>
-
-    <p:dataViewListItem>
-        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail">
-            <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" /> 
-
-            <p:outputPanel>
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Id:" />
-                    <h:outputText value="#{product.name}" style="font-weight: bold"/>
-
-                    <h:outputText value="Year:" />
-                    <h:outputText value="#{product.name}" style="font-weight: bold"/>
-
-                    <h:outputText value="Color:" />
-                    <h:outputText value="#{product.name}" style="font-weight: bold"/>
-                </h:panelGrid>
-            </p:outputPanel>
-
-            <p:commandLink  title="View Detail">
-                <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
-                
-            </p:commandLink>
-        </h:panelGrid>
-    </p:dataViewListItem>
-</p:dataView>
-</h:form>
-
+				<div class="product">
+					<div class="product-list-item p-5">
+						<p:graphicImage name="images/szafa.jpg" />
+						<div class="product-list-detail">
+							<div class="product-name">#{product.name}</div>
+							<div class="product-description">#{product.material}</div>
+							<p:rating readonly="true" value="" />
+							<i class="pi pi-tag product-category-icon" /><span
+								class="product-category"></span>
+						</div>
+						<div class="product-list-action">
+							<h:outputText value="#{product.price}" styleClass="product-price">
+								<f:convertNumber currencySymbol="zł" type="currency" />
+							</h:outputText>
+							<p:commandButton value="Dodaj do koszyka" icon="pi pi-shopping-cart"
+								disabled="">
+							</p:commandButton>
+							<span class=""></span>
+						</div>
+					</div>
+				</div>
+			</p:dataScroller>
+		</h:form>
+	</div>
 </h:body>
 </html>
