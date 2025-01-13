@@ -11,23 +11,76 @@
 	<title>Rejestracja</title>
 </h:head>
 <h:body>
-	<h:form id="form-login"
-		style="margin: 2em auto; padding: 1em; max-width: 400px; 
-    border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #f9f9f9;">
-		<div style="margin: 2em;">
-			<h5>
-				<p:outputLabel for="@next" value="Login: " />
-			</h5>
-			<p:inputText value="#{login.userEntity.firstName}" style="width: 220px;" />
-			<h5>
-				<p:outputLabel for="@next" value="Hasło: " />
-			</h5>
-			<p:password id="toggle" value="#{login.userEntity.surname}"
-				toggleMask="true" redisplay="true" />
-			<p:commandButton value="Zaloguj" action="#{login.login}" style="margin-right: 1em;" update="growl" />
-			<p:growl id="growl" showDetail="true" />
+	<h:form id="form-registration"
+		style="margin: 2em auto; padding: 1em; max-width: 500px; 
+    border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #f0f0f0;">
+		<p:growl id="growl" showDetail="true" />
+		<p:panel>
+			<f:facet name="header">Rejestracja</f:facet>
+			<h:panelGrid id="registrationPanel" columns="2" cellpadding="5">
+				<h:outputText value="Imię: " />
+				<p:inputText value="#{login.userEntity.firstName}"
+					style="width: 220px;" />
 
-		</div>
+				<p:spacer />
+				<p:spacer />
+
+				<h:outputText value="Nazwisko: " />
+				<p:inputText value="#{login.userEntity.surname}"
+					style="width: 220px;" />
+
+				<p:spacer />
+				<p:spacer />
+
+				<h:outputText value="Login: " />
+				<p:inputText value="#{login.userEntity.login}" style="width: 220px;" />
+
+				<p:spacer />
+				<p:spacer />
+
+				<h:outputText value="hasło: " />
+				<p:password id="pass1" value="#{login.userEntity.pass}"
+					redisplay="true" style="width: 220px;" />
+
+				<p:spacer />
+				<p:spacer />
+
+				<h:outputText value="Powtórz hasło: " />
+				<p:password id="pass2" value="" redisplay="true"
+					style="width: 220px;" />
+
+				<p:spacer />
+				<p:spacer />
+
+				<h:outputText value="Email: " />
+				<p:inputText value="#{login.userEntity.email}" style="width: 220px;" />
+
+				<h:outputText value="Miasto: " />
+				<p:inputText value="#{login.userEntity.city}" style="width: 220px;" />
+
+				<p:spacer />
+				<p:spacer />
+
+				<h:outputText value="Numer domu: " />
+				<p:inputText value="#{login.userEntity.houseNumber}"
+					style="width: 220px;" />
+
+				<p:spacer />
+				<p:spacer />
+
+				<h:outputText value="Kod pocztowy: " />
+				<p:inputText value="#{login.userEntity.postCode}"
+					style="width: 220px;" />
+
+				<p:spacer />
+				<p:spacer />
+
+			</h:panelGrid>
+			<p:panelGrid columns="1" cellpadding="10" width="100%">
+				<p:commandButton value="Zarejestruj"
+					style="display: block; margin: 2% auto;" />
+			</p:panelGrid>
+		</p:panel>
 	</h:form>
 </h:body>
 </html>

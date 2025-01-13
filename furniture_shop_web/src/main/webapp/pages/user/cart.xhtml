@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta charset="utf-8" />
+	<title>Koszyk</title>
+</h:head>
+<h:body style="background-color: #eee; margin: 1em;">
+
+	<ui:include src="/pages/menu-snippet.xhtml"></ui:include>
+
+	<h:form id="cartForm">
+		<p:growl id="growl" showDetail="true" />
+		<p:dataTable value="#{cart.items}" var="item" style="width: 100%;">
+			<f:facet name="header">
+                	Koszyk: <h:outputText
+					value="#{remoteClient.details.firstName} #{remoteClient.details.surname} login: #{remoteClient.details.login}" />
+			</f:facet>
+			<p:column headerText="Produkt">
+				<h:outputText value="#{item.product.name}" />
+			</p:column>
+			<p:column headerText="Cena">
+				<h:outputText value="#{item.product.price} zł" />
+			</p:column>
+			<p:column headerText="Ilość">
+				<p:spinner id="vertical" value="#{item.quantity}" buttons="vertical"
+					upButtonStyleClass="ui-button-secondary"
+					downButtonStyleClass="ui-button-secondary" min="1" max="100"
+					stepFactor="1">
+					<p:ajax update="cartForm" />
+				</p:spinner>
+			</p:column>
+			<p:column headerText="Razem">
+				<h:outputText value="#{item.product.price * item.quantity} zł" />
+			</p:column>
+			<p:column>
+				<p:commandButton value="Usuń"
+					action="#{cart.removeFromCart(item.product)}"
+					update="cartForm growl"></p:commandButton>
+			</p:column>
+		</p:dataTable>
+		<p:panel>
+			<h:outputText value="Pełna kwota: #{cart.total} zł"
+				style="font-size:20px; font-weight: 500;"></h:outputText>
+			<p:commandButton value="zamów" action="#{buyProduct.buy}"
+				update="cartForm growl"
+				style="margin-left:35%; padding:10px 15px; font-size:20px;">
+			</p:commandButton>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

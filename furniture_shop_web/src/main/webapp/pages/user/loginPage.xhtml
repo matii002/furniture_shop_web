@@ -11,23 +11,29 @@
 	<title>Logowanie</title>
 </h:head>
 <h:body>
+
 	<h:form id="form-login"
 		style="margin: 2em auto; padding: 1em; max-width: 400px; 
-    border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #f9f9f9;">
-		<div style="margin: 2em;">
-			<h5>
-				<p:outputLabel for="@next" value="Login: " />
-			</h5>
-			<p:inputText value="#{loginBB.login}" style="width: 220px;" />
-			<h5>
-				<p:outputLabel for="@next" value="Hasło: " />
-			</h5>
-			<p:password id="toggle" value="#{loginBB.pass}"
-				toggleMask="true" redisplay="true" />
-			<p:commandButton value="Zaloguj" action="#{loginBB.doLogin}" style="margin-right: 1em;" update="growl" />
-			<p:growl id="growl" showDetail="true" />
+    border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #f0f0f0;">
+		<p:growl id="growl" showDetail="true" />
+		<p:panel>
+			<h:panelGrid id="loginPanel" columns="2" cellpadding="5">
+				<h:outputText value="login: " />
+				<p:inputText value="#{loginBB.login}" style="width: 220px;"/>
 
-		</div>
+				<p:spacer />
+				<p:spacer />
+
+				<h:outputText value="hasło: " />
+				<p:password id="toggle" value="#{loginBB.pass}" toggleMask="true"
+					redisplay="true" />
+
+			</h:panelGrid>
+			<p:panelGrid columns="1" cellpadding="10" width="100%">
+				<p:commandButton value="Zaloguj" action="#{loginBB.doLogin}"
+					update="growl" style="display: block; margin: 2% auto;" />
+			</p:panelGrid>
+		</p:panel>
 	</h:form>
 </h:body>
 </html>

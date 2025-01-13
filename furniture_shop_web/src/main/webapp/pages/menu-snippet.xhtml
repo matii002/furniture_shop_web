@@ -5,18 +5,12 @@
 	xmlns:p="http://primefaces.org/ui">
 	<h:form>
 		<p:menubar style="text-align:center; margin-bottom:1em">
-			<p:submenu label="Realizacje">
-				<p:menuitem value="Kuchnie" />
-				<p:menuitem value="Salony" />
-				<p:menuitem value="Lazienki" />
-			</p:submenu>
-			<p:submenu label="Sklep">
-				<p:menuitem value="Stoły"
-					action="#{menuNavigation.goToProductsCards}" />
-				<p:menuitem value="Regały" />
-				<p:menuitem value="Witryny" />
-				<p:menuitem value="Krzesła" />
-			</p:submenu>
+			<p:menuitem value="Realizacje"
+				action="#{menuNavigation.goToRealizations}"></p:menuitem>
+			<p:menuitem value="Sklep"
+				action="#{menuNavigation.goToProductsCards}"></p:menuitem>
+			<p:menuitem value="Koszyk"
+				action="#{menuNavigation.goToCart}"></p:menuitem>
 			<p:menuitem value="Rejestracja"
 				action="#{menuNavigation.goToRegistration}"></p:menuitem>
 			<p:menuitem value="Logowanie" action="#{menuNavigation.goToLogin}"></p:menuitem>

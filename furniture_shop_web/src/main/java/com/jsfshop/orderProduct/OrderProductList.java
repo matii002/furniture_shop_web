@@ -1,12 +1,10 @@
 package com.jsfshop.orderProduct;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.jsf.dao.OrderProductDAO;
-import com.jsf.entities.OrderDetailsEntity;
 import com.jsf.entities.OrderProductEntity;
 
 import jakarta.ejb.EJB;
@@ -20,8 +18,8 @@ import jakarta.inject.Named;
 @RequestScoped
 public class OrderProductList {
 
-	private static final String PAGE_ORDER_PRODUCT_EDIT = "orderProductEdit?faces-redirect=true";
-	private static final String PAGE_ORDER_DETAILS = "orderDetails?faces-redirect=true";
+	private static final String PAGE_ORDER_PRODUCT_EDIT = "/pages/shop-assistant/orderProductEdit?faces-redirect=true";
+	private static final String PAGE_ORDER_DETAILS = "/pages/shop-assistant/orderDetails?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private String id;
@@ -81,7 +79,7 @@ public class OrderProductList {
 
 		return PAGE_ORDER_DETAILS;
 	}
-	
+
 	public String deleteOrderProduct(OrderProductEntity orderProduct) {
 		orderProductDAO.remove(orderProduct);
 		return PAGE_STAY_AT_THE_SAME;

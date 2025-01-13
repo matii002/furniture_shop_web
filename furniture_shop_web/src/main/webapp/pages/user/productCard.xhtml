@@ -15,36 +15,36 @@
 	<ui:include src="/pages/menu-snippet.xhtml"></ui:include>
 
 	<p:growl id="growl" showDetail="true" />
-	<div class="card">
-		<h:form>
-			<p:dataScroller value="#{productList.list}" var="product"
-				chunkSize="10">
-				<f:facet name="header">
-                Przewiń żeby załadować więcej produktów
-            </f:facet>
+	<div class="product card">
+		<h:form id="form">
+			<p:dataGrid var="product" value="#{productList.list}" columns="3"
+				layout="grid" rows="6" paginator="true" id="product"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
-				<div class="product">
-					<div class="product-list-item p-5">
-						<p:graphicImage name="images/szafa.jpg" />
-						<div class="product-list-detail">
-							<div class="product-name">#{product.name}</div>
-							<div class="product-description">#{product.material}</div>
-							<p:rating readonly="true" value="" />
-							<i class="pi pi-tag product-category-icon" /><span
-								class="product-category"></span>
-						</div>
-						<div class="product-list-action">
-							<h:outputText value="#{product.price}" styleClass="product-price">
-								<f:convertNumber currencySymbol="zł" type="currency" />
-							</h:outputText>
-							<p:commandButton value="Dodaj do koszyka" icon="pi pi-shopping-cart"
-								disabled="">
-							</p:commandButton>
-							<span class=""></span>
-						</div>
+				<f:facet name="header">
+                	Produkty w sklepie Meble Proszowski
+            	</f:facet>
+
+				<div class="product-grid-item card"
+					style="box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); border-radius: 3px; margin: 13%; background-color: #fafafa; padding: 6% 0;">
+					<div class="product-grid-item-content" style="text-align: center;">
+						<p:graphicImage value="#{product.imageUrl}"
+							style="box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); height:300px; width:300px;" />
+						<div class="product-name"
+							style="font-weight: bold; font-size: 20px;">#{product.name}</div>
+						<div class="product-description">#{product.material}</div>
 					</div>
+					<div class="product-grid-item-bottom" style="text-align: center;">
+						<h:outputText value="#{product.price}" styleClass="product-price">
+							<f:convertNumber currencySymbol="zł" type="currency" />
+						</h:outputText>
+					</div>
+					<p:commandButton style="display: block; margin: 2% auto;"
+						value="Dodaj do koszyka" actionListener="#{cart.addToCart(product)}" update="growl">
+					</p:commandButton>
 				</div>
-			</p:dataScroller>
+
+			</p:dataGrid>
 		</h:form>
 	</div>
 </h:body>
