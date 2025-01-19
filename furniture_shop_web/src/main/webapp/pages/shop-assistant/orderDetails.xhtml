@@ -6,9 +6,6 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<f:metadata>
-	<f:viewAction action="#{orderProductEdit.onLoad()}" />
-</f:metadata>
 <h:head>
 	<meta charset="utf-8" />
 	<title>Szczegóły zamówienia</title>
@@ -17,72 +14,56 @@
 
 	<p:growl id="growl" showDetail="true" />
 	<h:form>
-		<p:commandButton value="Powrót" action="#{orderProductEdit.close()}"
+		<p:commandButton value="Powrót" action="#{orderProductList.close()}"
 			styleClass="mr-2">
 		</p:commandButton>
 	</h:form>
-	<h:form rendered="#{orderProductEdit.orderProduct != null}"
-		id="form-table" style="margin-bottom:1em;">
-		<p:dataTable value="#{orderProductEdit.orderProduct}" var="o"
-			rows="10" rowKey="#{o.orderDetail.idOrder}">
-			<p:column headerText="Klient">
+	<h:form id="form-table" style="margin-bottom:1em;">
+		<p:panel header="Klient" style="margin-top: 2%;">
+			<h:panelGroup style="font-weight: bold;">
+				<h:outputText value="Imię i nazwisko: " />
+			</h:panelGroup>
+			<h:outputText value="#{orderProductList.order.user.firstName} " />
+			<h:outputText value="#{orderProductList.order.user.surname}" />
+			<br />
+			<h:panelGroup style="font-weight: bold;">
+				<h:outputText value="Email: " />
+			</h:panelGroup>
+			<h:outputText value="#{orderProductList.order.user.email}" />
+			<br />
+			<h:panelGroup style="font-weight: bold;">
+				<h:outputText value="Adres: " />
+			</h:panelGroup>
+			<h:outputText value="#{orderProduct.order.user.city} " />
+			<h:outputText value="ul.#{orderProductList.order.user.street} " />
+			<h:outputText value="#{orderProductList.order.user.houseNumber} " />
+			<h:outputText value="#{orderProductList.order.user.postCode}" />
+		</p:panel>
+
+		<p:dataTable value="#{orderProductList.list}" var="o"
+			style="margin-top: 2%;">
+			<p:column
+				headerText="Produkty w zamówieniu o id: #{orderProductList.order.idOrder}">
+
 				<h:panelGroup style="font-weight: bold;">
-					<h:outputText value="Imię i nazwisko: " />
+					<h:outputText value="Nazwa: " />
 				</h:panelGroup>
-				<h:outputText value="#{o.orderDetail.user.firstName} " />
-				<h:outputText value="#{o.orderDetail.user.surname}" />
+				<h:outputText value="#{o.product.name} " />
 				<br />
 				<h:panelGroup style="font-weight: bold;">
-					<h:outputText value="Email: " />
+					<h:outputText value="Cena: " />
 				</h:panelGroup>
-				<h:outputText value="#{o.orderDetail.user.email}" />
+				<h:outputText value="#{o.product.price} " />
 				<br />
 				<h:panelGroup style="font-weight: bold;">
-					<h:outputText value="Adres: " />
+					<h:outputText value="Ilość: " />
 				</h:panelGroup>
-				<h:outputText value="#{o.orderDetail.user.city} " />
-				<h:outputText value="ul.#{o.orderDetail.user.street} " />
-				<h:outputText value="#{o.orderDetail.user.houseNumber} " />
-				<h:outputText value="#{o.orderDetail.user.postCode}" />
+				<h:outputText value="#{o.quantity} " />
 			</p:column>
-			<p:column headerText="Produkty">
-				<ui:repeat value="#{o.product}" var="product">
-					<h:panelGroup style="font-weight: bold;">
-						<h:outputText value="Nazwa: " />
-					</h:panelGroup>
-					<h:outputText value="#{product.name} " />
-					<br />
-					<h:panelGroup style="font-weight: bold;">
-						<h:outputText value="Cena: " />
-					</h:panelGroup>
-					<h:outputText value="#{product.price} " />
-					<br />
-					<h:panelGroup style="font-weight: bold;">
-						<h:outputText value="Ilość: " />
-					</h:panelGroup>
-					<h:outputText value="#{o.quantity} " />
-				</ui:repeat>
-			</p:column>
-			<p:column headerText="Kwota">
-				<h:outputText value="#{o.orderDetail.fullPrice}" />
-			</p:column>
-			<p:rowExpansion>
-				<h:panelGroup>
-					<h:outputText value="Produkty zamówione: " />
-					<p:dataTable value="#{o.product}" var="product" rows="5">
-						<p:column headerText="Nazwa produktu">
-							<h:outputText value="#{product.name}" />
-						</p:column>
-						<p:column headerText="Cena">
-							<h:outputText value="#{product.price}" />
-						</p:column>
-						<p:column headerText="Ilość">
-							<h:outputText value="#{product.quantity}" />
-						</p:column>
-					</p:dataTable>
-				</h:panelGroup>
-			</p:rowExpansion>
 		</p:dataTable>
+		<p:panel header="Kwota zamówienia" style="margin-top: 2%;">
+			<h:outputText value="#{orderProductList.order.fullPrice} zł" />
+		</p:panel>
 	</h:form>
 </h:body>
 </html>

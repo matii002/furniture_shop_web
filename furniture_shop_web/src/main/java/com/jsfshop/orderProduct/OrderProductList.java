@@ -1,28 +1,34 @@
 package com.jsfshop.orderProduct;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.jsf.dao.OrderProductDAO;
+import com.jsf.dao.UserDAO;
+import com.jsf.entities.OrderDetailsEntity;
 import com.jsf.entities.OrderProductEntity;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.Flash;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named
-@RequestScoped
-public class OrderProductList {
+@ViewScoped
+public class OrderProductList implements Serializable {
 
-	private static final String PAGE_ORDER_PRODUCT_EDIT = "/pages/shop-assistant/orderProductEdit?faces-redirect=true";
-	private static final String PAGE_ORDER_DETAILS = "/pages/shop-assistant/orderDetails?faces-redirect=true";
+	private static final long serialVersionUID = 1L;
 	private static final String PAGE_STAY_AT_THE_SAME = null;
-
-	private String id;
+	private static final String PAGE_ORDER_LIST = "/pages/shop-assistant/orderList?faces-redirect=true";
+	private OrderDetailsEntity loaded = null;
+	private OrderDetailsEntity order = null;
 
 	@Inject
 	ExternalContext extcontext;
@@ -33,12 +39,21 @@ public class OrderProductList {
 	@EJB
 	OrderProductDAO orderProductDAO;
 
-	public String getId() {
-		return id;
-	}
+	@EJB
+	UserDAO userDAO;
 
-	public void setId(String id) {
-		this.id = id;
+	@Inject
+	FacesContext context;
+
+	@PostConstruct
+	public void onLoad() {
+		loaded = (OrderDetailsEntity) flash.get("order");
+
+		if (loaded != null) {
+			order = loaded;
+		} else {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędne użycie systemu", null));
+		}
 	}
 
 	public List<OrderProductEntity> getFullList() {
@@ -50,20 +65,13 @@ public class OrderProductList {
 
 		Map<String, Object> searchParams = new HashMap<String, Object>();
 
-		if (id != null && id.length() > 0) {
-			searchParams.put("id", id);
+		if (order.getIdOrder() > 0) {
+			searchParams.put("idOrder", order.getIdOrder());
 		}
 
 		list = orderProductDAO.getList(searchParams);
 
 		return list;
-	}
-
-	public String newOrderProduct() {
-		OrderProductEntity order = new OrderProductEntity();
-		flash.put("order", order);
-
-		return PAGE_ORDER_PRODUCT_EDIT;
 	}
 
 	public String editOrderProduct(OrderProductEntity orderProduct) {
@@ -73,15 +81,16 @@ public class OrderProductList {
 		return "orderEdit?faces-redirect=true";
 	}
 
-	public String showOrderDetails(OrderProductEntity orderProduct) {
-
-		flash.put("orderProduct", orderProduct);
-
-		return PAGE_ORDER_DETAILS;
-	}
-
 	public String deleteOrderProduct(OrderProductEntity orderProduct) {
 		orderProductDAO.remove(orderProduct);
 		return PAGE_STAY_AT_THE_SAME;
+	}
+
+	public OrderDetailsEntity getOrder() {
+		return order;
+	}
+
+	public String close() {
+		return PAGE_ORDER_LIST;
 	}
 }

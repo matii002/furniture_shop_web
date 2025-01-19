@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:metadata>
+	<f:viewAction action="#{userEdit.onLoad()}" />
+</f:metadata>
+<h:head>
+	<meta charset="utf-8" />
+	<title>Rejestracja</title>
+</h:head>
+<h:body>
+
+	<p:growl id="growl" showDetail="true" />
+
+	<h:form>
+		<p:commandButton value="Anuluj"
+			action="#{menuNavigation.goToProductsCards}"
+			style="margin-bottom: 1em;" update="growl" />
+	</h:form>
+	<h:form rendered="#{userEdit.user != null}" id="form-registration"
+		style="margin: 2em auto; padding: 1em; max-width: 500px; 
+    border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); background-color: #f0f0f0;">
+
+		<p:panel>
+			<f:facet name="header">Rejestracja</f:facet>
+
+			<h:panelGrid columns="3" cellpadding="5">
+				<h:outputLabel for="p-name" value="Imię:" />
+				<p:inputText id="p-name" value="#{userEdit.user.firstName}"
+					required="true" requiredMessage="Podaj imię:"
+					validatorMessage="Imię jest zbyt długie.">
+					<f:validateLength maximum="45" />
+				</p:inputText>
+				<p:message for="p-name" display="icon" />
+
+				<h:outputLabel for="p-surname" value="Nazwisko:" />
+				<p:inputText id="p-surname" value="#{userEdit.user.surname}"
+					required="true" requiredMessage="Podaj nazwisko:"
+					validatorMessage="Nazwisko jest zbyt długie.">
+					<f:validateLength maximum="45" />
+				</p:inputText>
+				<p:message for="p-surname" display="icon" />
+
+				<h:outputLabel for="p-login" value="Login:" />
+				<p:inputText id="p-login" value="#{userEdit.user.login}"
+					required="true" requiredMessage="Podaj login:"
+					validatorMessage="Login jest zbyt długi.">
+					<f:validateLength maximum="45" />
+				</p:inputText>
+				<p:message for="p-login" display="icon" />
+
+				<h:outputLabel for="p-pass" value="Hasło:" />
+				<p:inputText id="p-pass" value="#{userEdit.user.pass}"
+					required="true" requiredMessage="Podaj hasło:"
+					validatorMessage="Hasło jest zbyt długie.">
+					<f:validateLength maximum="45" />
+				</p:inputText>
+				<p:message for="p-pass" display="icon" />
+
+				<h:outputLabel for="p-email" value="Email:" />
+				<p:inputText id="p-email" value="#{userEdit.user.email}"
+					required="true" requiredMessage="Podaj email:"
+					validatorMessage="Email jest niepoprawny.">
+					<f:validateLength maximum="45" />
+				</p:inputText>
+				<p:message for="p-email" display="icon" />
+
+				<h:outputLabel for="p-city" value="Miasto:" />
+				<p:inputText id="p-city" value="#{userEdit.user.city}"
+					required="true" requiredMessage="Podaj miasto:"
+					validatorMessage="Nazwa miasta jest zbyt długa.">
+					<f:validateLength maximum="45" />
+				</p:inputText>
+				<p:message for="p-city" display="icon" />
+
+				<h:outputLabel for="p-street" value="Ulica:" />
+				<p:inputText id="p-street" value="#{userEdit.user.street}"
+					required="true" requiredMessage="Podaj ulicę:"
+					validatorMessage="Nazwa ulicy jest zbyt długa.">
+					<f:validateLength maximum="45" />
+				</p:inputText>
+				<p:message for="p-street" display="icon" />
+
+				<h:outputLabel for="p-house" value="Numer domu:" />
+				<p:inputText id="p-house" value="#{userEdit.user.houseNumber}"
+					required="true" requiredMessage="Podaj numer domu:"
+					validatorMessage="Numer domu jest niepoprawny.">
+					<f:validateLength maximum="10" />
+				</p:inputText>
+				<p:message for="p-house" display="icon" />
+
+				<h:outputLabel for="p-post-code" value="Kod pocztowy:" />
+				<p:inputText id="p-post-code" value="#{userEdit.user.postCode}"
+					required="true" requiredMessage="Podaj kod pocztowy:"
+					validatorMessage="Kod pocztowy jest niepoprawny.">
+					<f:validateLength maximum="6" />
+				</p:inputText>
+				<p:message for="p-post-code" display="icon" />
+			</h:panelGrid>
+		</p:panel>
+		<p:commandButton value="Zarejestruj" action="#{userEdit.saveData()}"
+			style="display: block; margin: 2% auto;" update="growl" />
+	</h:form>
+</h:body>
+</html>

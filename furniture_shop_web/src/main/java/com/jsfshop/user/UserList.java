@@ -9,9 +9,7 @@ import com.jsf.dao.UserDAO;
 import com.jsf.entities.UserEntity;
 
 import jakarta.ejb.EJB;
-import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.Flash;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -21,7 +19,8 @@ import jakarta.inject.Named;
 @ViewScoped
 public class UserList implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private static final String PAGE_USER_EDIT = "userEdit?faces-redirect=true";
+	private static final String PAGE_USER_EDIT = "/pages/admin/userEdit?faces-redirect=true";
+	private static final String PAGE_REGISTRATION = "/public/registrationPage?faces-redirect=true"; 
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private String surname;
@@ -66,7 +65,7 @@ public class UserList implements Serializable {
 
 		flash.put("user", user);
 
-		return PAGE_USER_EDIT;
+		return PAGE_REGISTRATION;
 	}
 
 	public String editUser(UserEntity user) {

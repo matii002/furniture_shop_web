@@ -63,6 +63,12 @@
 					<f:validateLongRange />
 				</p:inputText>
 				<p:message for="p-quantity" display="icon" />
+				
+				<h:outputLabel for="p-urlImage" value="Zdjęcie:" />
+				<p:inputText id="p-urlImage" value="#{productEdit.product.imageUrl}"
+					required="true" requiredMessage="Podaj url zdjęcia:">
+				</p:inputText>
+				<p:message for="p-quantity" display="icon" />
 			</h:panelGrid>
 
 			<p:commandButton value="Zapisz" action="#{productEdit.saveData()}"

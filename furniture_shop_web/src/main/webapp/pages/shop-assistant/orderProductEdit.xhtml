@@ -7,7 +7,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <f:metadata>
-	<f:viewAction action="#{orderProductEdit.onLoad()}" />
+	<f:viewAction action="#{orderEdit.onLoad()}" />
 </f:metadata>
 
 <h:head>
@@ -18,23 +18,23 @@
 <p:growl id="growl" showDetail="true" />
 <h:body style="background-color: #eee; margin: 0.5em;">
 	<p:panel toggleable="true"
-		header="Edycja zamówienia #{orderProductEdit.orderProduct.orderDetail.idOrder}">
-		<h:form id="edit" rendered="#{orderProductEdit.orderProduct != null}">
+		header="Edycja zamówienia #{orderEdit.idOrder}">
+		<h:form id="edit" rendered="#{orderEdit.orderProduct != null}">
 
 			<h:panelGrid columns="3" cellpadding="5">
 
 				<h:outputLabel for="p-date" value="Data zakończenia:" />
 				<h:inputText id="p-date"
-					value="#{orderProductEdit.orderProduct.orderDetail.orderFinish}"
+					value="#{orderEdit.orderFinish}"
 					converterMessage="Niepoprawny format">
 					<f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
 				</h:inputText>
 			</h:panelGrid>
-			<p:commandButton value="Powrót" action="#{orderProductEdit.close()}"
+			<p:commandButton value="Powrót" action="#{orderEdit.close()}"
 				styleClass="mr-2" />
 
 			<p:commandButton value="Zapisz"
-				action="#{orderProductEdit.saveData()}" style="margin-right: 1em;"
+				action="#{orderEdit.saveData()}" style="margin-right: 1em;"
 				update="growl" />
 		</h:form>
 	</p:panel>

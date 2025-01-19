@@ -17,8 +17,8 @@ import com.jsf.entities.UserEntity;
 @Named
 @RequestScoped
 public class LoginBB {
-	private static final String PAGE_MAIN = "/pages/user/productCard?faces-redirect=true";
-	private static final String PAGE_LOGIN = "/pages/user/login?faces-redirect=true";
+	private static final String PAGE_MAIN = "/public/productCard?faces-redirect=true";
+	private static final String PAGE_LOGIN = "/public/loginPage?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private String login;
@@ -60,7 +60,7 @@ public class LoginBB {
 		
 		RemoteClient<UserEntity> client = new RemoteClient<UserEntity>(); //create new RemoteClient
 		client.setDetails(user);
-		
+		client.setLogin(user.getLogin());
 		List<String> roles = userDAO.getUserRolesFromDatabase(user); //get User roles 
 		
 		if (roles != null) { //save roles in RemoteClient

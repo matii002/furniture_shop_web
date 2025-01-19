@@ -10,7 +10,12 @@ import jakarta.faces.context.Flash;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
+import com.jsf.dao.PermissionDAO;
+import com.jsf.dao.RoleDAO;
 import com.jsf.dao.UserDAO;
+import com.jsf.entities.PermissionEntity;
+import com.jsf.entities.RoleEntity;
 import com.jsf.entities.UserEntity;
 
 @Named
@@ -21,10 +26,17 @@ public class UserEdit implements Serializable {
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private UserEntity user = new UserEntity();
+	private PermissionEntity permission = new PermissionEntity();
 	private UserEntity loaded = null;
 
 	@EJB
 	UserDAO userDAO;
+
+	@EJB
+	RoleDAO roleDAO;
+
+	@EJB
+	PermissionDAO permissionDAO;
 
 	@Inject
 	FacesContext context;
@@ -55,10 +67,20 @@ public class UserEdit implements Serializable {
 		try {
 			if (user.getIdUser() == 0) {
 				userDAO.create(user);
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Utworzono nowego uzytkownika.", null));
+				permission.setActive(true);
+				permission.setUser(user);
+
+				RoleEntity role = roleDAO.find(2);
+
+				permission.setRole(role);
+				permissionDAO.create(permission);
+
+				context.addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Utworzono nowego uzytkownika.", null));
 			} else {
 				userDAO.merge(user);
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Zaktualizowano pomyślnie.", null));
+				context.addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Zaktualizowano pomyślnie.", null));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

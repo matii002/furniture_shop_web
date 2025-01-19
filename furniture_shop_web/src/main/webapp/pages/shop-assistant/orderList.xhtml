@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta charset="utf-8" />
+	<title>Zamówienia produktów</title>
+</h:head>
+<h:body style="background-color: #eee; margin: 1em;">
+
+	<ui:include src="/public/menu-snippet.xhtml"></ui:include>
+	<p:growl id="growl" showDetail="true" />
+
+	<h:form>
+		<p:panel header="Wyszukaj zamówienie - id"
+			style="margin-bottom: 1em; text-align:center;">
+			<h:panelGrid columns="2" cellpadding="5"
+				style="display:flex; justify-content: center;">
+
+				<p:inputText value="#{orderList.id}" />
+				<br />
+				<p:commandButton value="Szukaj" update="form-table"
+					icon="pi pi-search" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+
+	<h:form id="form-table" style="margin-bottom:1em;">
+		<p:dataTable value="#{orderList.list}" var="o" rows="10"
+			paginator="true">
+			<p:column headerText="ID Zamówienia">
+				<h:outputText value="#{o.idOrder}" />
+			</p:column>
+			<p:column headerText="Data Zamówienia">
+				<h:outputText value="#{o.orderDate}" />
+			</p:column>
+			<p:column headerText="Data Zakończenia">
+				<h:outputText value="#{o.orderFinish}" />
+			</p:column>
+			<p:column headerText="Pełna kwota">
+				<h:outputText value="#{o.fullPrice}" />
+			</p:column>
+			<p:column headerText="Akcje">
+				<p:commandButton value="Szczegóły"
+					action="#{orderList.showOrderDetails(o)}"
+					update="details-panel growl" style="margin-right:10px">
+				</p:commandButton>
+				<p:commandButton value="Edytuj" action="#{orderList.editOrder(o)}"></p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

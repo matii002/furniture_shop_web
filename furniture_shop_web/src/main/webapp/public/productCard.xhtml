@@ -12,14 +12,30 @@
 </h:head>
 <h:body style="background-color: #eee; margin: 1em;">
 
-	<ui:include src="/pages/menu-snippet.xhtml"></ui:include>
+	<ui:include src="/public/menu-snippet.xhtml"></ui:include>
 
 	<p:growl id="growl" showDetail="true" />
+
+	<h:form>
+		<p:panel header="Wyszukaj produkt - nazwa"
+			style="margin-bottom: 1em; text-align:center;">
+			<h:panelGrid columns="2" cellpadding="5"
+				style="display:flex; justify-content: center;">
+
+				<p:inputText value="#{productList.name}" />
+				<br />
+				<p:commandButton value="Szukaj" update="form" icon="pi pi-search" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+
 	<div class="product card">
+
 		<h:form id="form">
-			<p:dataGrid var="product" value="#{productList.list}" columns="3"
-				layout="grid" rows="6" paginator="true" id="product"
-				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<p:dataGrid var="product" value="#{productList.model}" columns="3"
+				layout="grid" rows="3" paginator="true" id="product"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				lazy="true">
 
 				<f:facet name="header">
                 	Produkty w sklepie Meble Proszowski
@@ -34,13 +50,28 @@
 							style="font-weight: bold; font-size: 20px;">#{product.name}</div>
 						<div class="product-description">#{product.material}</div>
 					</div>
+
 					<div class="product-grid-item-bottom" style="text-align: center;">
 						<h:outputText value="#{product.price}" styleClass="product-price">
 							<f:convertNumber currencySymbol="zł" type="currency" />
 						</h:outputText>
+						<br />
+						<h:panelGroup rendered="#{product.availibility == 0}">
+							<i class="pi pi-circle-fill" style="color: red;" />
+							<h:outputText value=" Niedostępny" />
+						</h:panelGroup>
+
+						<h:panelGroup rendered="#{product.availibility == 1}">
+							<i class="pi pi-circle-fill" style="color: green;" />
+							<h:outputText value=" Dostępny" />
+						</h:panelGroup>
 					</div>
+
+
 					<p:commandButton style="display: block; margin: 2% auto;"
-						value="Dodaj do koszyka" actionListener="#{cart.addToCart(product)}" update="growl">
+						value="Dodaj do koszyka"
+						actionListener="#{cart.addToCart(product)}" update="growl"
+						rendered="#{product.availibility == 1}">
 					</p:commandButton>
 				</div>
 

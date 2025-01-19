@@ -2,8 +2,6 @@ package com.jsfshop.orderProduct;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import com.jsf.dao.OrderProductDAO;
 import com.jsf.entities.OrderProductEntity;
@@ -38,7 +36,7 @@ public class OrderProductEdit implements Serializable {
 	public OrderProductEntity getOrderProduct() {
 		return orderProduct;
 	}
-	
+
 	public void onLoad() throws IOException {
 
 		loaded = (OrderProductEntity) flash.get("orderProduct");
@@ -52,17 +50,14 @@ public class OrderProductEdit implements Serializable {
 	}
 
 	public String saveData() {
-		// no Product object passed
 		if (loaded == null) {
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
 		try {
 			if (orderProduct.getIdOrderProduct() == 0) {
-				// new record
 				orderProductDAO.create(orderProduct);
 			} else {
-				// existing record
 				orderProductDAO.merge(orderProduct);
 				System.out.println("Order Finish: " + orderProduct.getOrderDetail().getOrderFinish());
 			}
@@ -73,10 +68,6 @@ public class OrderProductEdit implements Serializable {
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
-		return PAGE_ORDER_PRODUCT_LIST;
-	}
-
-	public String close() {
 		return PAGE_ORDER_PRODUCT_LIST;
 	}
 }

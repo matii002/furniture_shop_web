@@ -12,40 +12,41 @@
 </h:head>
 <h:body style="background-color: #eee; margin: 1em;">
 
-	<ui:include src="/pages/menu-snippet.xhtml" />
+	<ui:include src="/public/menu-snippet.xhtml" />
 
 	<p:growl id="growl" showDetail="true" />
 
-	<p:panel header="Wyszukaj produkt - nazwa"
-		style="margin-bottom: 1em; text-align:center;">
-		<h:form>
+<h:form>
+		<p:panel header="Wyszukaj produkt - nazwa"
+			style="margin-bottom: 1em; text-align:center;">
 			<h:panelGrid columns="2" cellpadding="5"
 				style="display:flex; justify-content: center;">
 
 				<p:inputText value="#{productList.name}" />
 				<br />
-				<p:commandButton value="Szukaj" update="form-table"
-					icon="pi pi-search" />
+				<p:commandButton value="Szukaj" update="form-table" icon="pi pi-search" />
 			</h:panelGrid>
-		</h:form>
-	</p:panel>
+		</p:panel>
+	</h:form>
 
 	<h:form id="form-table" style="margin-bottom:1em;">
 
 		<p:commandButton value="Dodaj nowy produkt"
 			action="#{productList.newProduct()}" style="margin-bottom:1em;" />
 
-		<p:dataTable value="#{productList.list}" var="p" paginator="true"
-			rows="2">
+		<p:dataTable var="p" value="#{productList.model}" rows="3"
+			paginator="true" id="p"
+			paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			lazy="true">
 
-			<p:column priority="5">
+			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Nazwa" />
 				</f:facet>
 				<h:outputText value="#{p.name}" />
 			</p:column>
 
-			<p:column priority="5">
+			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Cena" />
 				</f:facet>
@@ -85,31 +86,31 @@
 				<f:facet name="header">
 					<h:outputText value="opcje" />
 				</f:facet>
-				
+
 
 				<div class="card">
-					
-						<p:commandButton value="Edytuj"
-							action="#{productList.editProduct(p)}" update="form-table growl"
-							style="margin-right:10px" icon="pi pi-check">
-						</p:commandButton>
-						
-						<p:commandButton value="Usuń"
-							action="#{productList.deleteProduct(p)}" update="form-table growl"
-							styleClass="ui-button-danger mr-2" icon="pi pi-times">
-							<p:confirm header="Usuń"
-								message="Czy na pewno chcesz usunąć ten rekord?"
-								icon="pi pi-exclamation-triangle" />
-						</p:commandButton>
-						
-						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
-							responsive="true" width="350" >
-							<p:commandButton value="Nie" type="button"
-								styleClass="ui-confirmdialog-no ui-button-flat" />
-							<p:commandButton value="Tak" type="button"
-								styleClass="ui-confirmdialog-yes" />
-						</p:confirmDialog>
-					
+
+					<p:commandButton value="Edytuj"
+						action="#{productList.editProduct(p)}" update="form-table growl"
+						style="margin-right:10px" icon="pi pi-check">
+					</p:commandButton>
+
+					<p:commandButton value="Usuń"
+						action="#{productList.deleteProduct(p)}" update="form-table growl"
+						styleClass="ui-button-danger mr-2" icon="pi pi-times">
+						<p:confirm header="Usuń"
+							message="Czy na pewno chcesz usunąć ten rekord?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+						responsive="true" width="350">
+						<p:commandButton value="Nie" type="button"
+							styleClass="ui-confirmdialog-no ui-button-flat" />
+						<p:commandButton value="Tak" type="button"
+							styleClass="ui-confirmdialog-yes" />
+					</p:confirmDialog>
+
 				</div>
 			</p:column>
 

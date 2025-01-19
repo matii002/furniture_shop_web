@@ -12,14 +12,14 @@
 </h:head>
 <h:body style="background-color: #eee; margin: 1em;">
 
-	<ui:include src="/pages/menu-snippet.xhtml"></ui:include>
+	<ui:include src="/public/menu-snippet.xhtml"></ui:include>
 
 	<h:form id="cartForm">
 		<p:growl id="growl" showDetail="true" />
 		<p:dataTable value="#{cart.items}" var="item" style="width: 100%;">
 			<f:facet name="header">
                 	Koszyk: <h:outputText
-					value="#{remoteClient.details.firstName} #{remoteClient.details.surname} login: #{remoteClient.details.login}" />
+					value="#{remoteClient.details.firstName} #{remoteClient.details.surname} login: #{remoteClient.login} #{remoteClient.roles}" />
 			</f:facet>
 			<p:column headerText="Produkt">
 				<h:outputText value="#{item.product.name}" />

@@ -1,5 +1,6 @@
 package com.jsfshop.order;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,17 +9,21 @@ import com.jsf.dao.OrderDetailsDAO;
 import com.jsf.entities.OrderDetailsEntity;
 
 import jakarta.ejb.EJB;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.Flash;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named
-@RequestScoped
-public class OrderList {
-	private static final String PAGE_ORDER_EDIT = "orderEdit?faces-redirect=true";
-	private static final String PAGE_ORDER_DETAILS = "orderDetails?faces-redirect=true";
+@ViewScoped
+public class OrderList implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private static final String PAGE_ORDER_EDIT = "/pages/shop-assistant/orderEdit?faces-redirect=true";
+
+	private static final String PAGE_ORDER_DETAILS = "/pages/shop-assistant/orderDetails?faces-redirect=true";
+
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 
 	private int id;

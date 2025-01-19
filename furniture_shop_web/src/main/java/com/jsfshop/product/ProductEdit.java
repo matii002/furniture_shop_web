@@ -39,40 +39,25 @@ public class ProductEdit implements Serializable {
 	}
 
 	public void onLoad() throws IOException {
-		// 1. load Product passed through session
-		// HttpSession session = (HttpSession)
-		// context.getExternalContext().getSession(true);
-		// loaded = (Product) session.getAttribute("Product");
-
-		// 2. load Product passed through flash
 		loaded = (ProductEntity) flash.get("product");
 
-		// cleaning: attribute received => delete it from session
 		if (loaded != null) {
 			product = loaded;
-			// session.removeAttribute("Product");
 		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędne użycie systemu", null));
-			// if (!context.isPostback()) { //possible redirect
-			// context.getExternalContext().redirect("ProductList.xhtml");
-			// context.responseComplete();
-			// }
 		}
 
 	}
 
 	public String saveData() {
-		// no Product object passed
 		if (loaded == null) {
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
 		try {
 			if (product.getIdProduct() == 0) {
-				// new record
 				productDAO.create(product);
 			} else {
-				// existing record
 				productDAO.merge(product);
 			}
 		} catch (Exception e) {
